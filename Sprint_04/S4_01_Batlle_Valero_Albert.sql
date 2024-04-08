@@ -24,6 +24,25 @@ CREATE TABLE IF NOT EXISTS transactions (
     longitude VARCHAR(30)
 );
 
+/*Malgrat que hem afegit les dades  amb Data Import Wizard, procedeixo a afegir la metodologia que hauríem d'utitlitzar per carregar les 
+dades del fitxer csv directament desde l'ordinador. 
+*/
+
+#En primer lloc, haurem de comprovar els permisos de privilegi des d'on es pot carregar l'arxiu i modificar l'arxiu my.ini
+SELECT @@secure_file_priv;
+
+LOAD DATA INFILE
+#'C:\Users\Albert\OneDrive\Bureau\IT Academy\Sprint 4\csv\transactions.csv'
+'transactions.csv'
+#'C:\ProgramData\MySQL\MySQL Server 8.0\Data\transactions.csv'
+INTO TABLE transactions
+FIELDS terminated by ';'
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 lines
+;
+
+
 CREATE TABLE IF NOT EXISTS companies(
 	id VARCHAR(15) PRIMARY KEY,
     company_name VARCHAR(50),
